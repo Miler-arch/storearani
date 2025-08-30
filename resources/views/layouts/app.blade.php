@@ -14,15 +14,18 @@
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
     <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Panaderia Arani') }}
+                <a class="navbar-brand bg-light" href="{{ route('home') }}">
+                    <img src="{{ asset('assets/img/logo.jpg') }}" alt="{{ config('app.name', 'Laravel') }}" class="rounded-circle" width="100">
                 </a>
+                <button id="theme-toggle" class="btn btn-outline-secondary">
+                    <i id="theme-icon" class="bi bi-sun-fill"></i>
+                </button>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -76,5 +79,36 @@
             @yield('content')
         </main>
     </div>
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            const icon = document.getElementById('theme-icon');
+
+            if (body.getAttribute('data-bs-theme') === 'dark') {
+                body.setAttribute('data-bs-theme', 'light');
+                icon.classList.replace('bi-moon-fill', 'bi-sun-fill');
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.setAttribute('data-bs-theme', 'dark');
+                icon.classList.replace('bi-sun-fill', 'bi-moon-fill');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const btn = document.getElementById('theme-toggle');
+            const savedTheme = localStorage.getItem('theme') || 'light';
+
+            document.body.setAttribute('data-bs-theme', savedTheme);
+
+            const icon = document.getElementById('theme-icon');
+            if (savedTheme === 'dark') {
+                icon.classList.replace('bi-sun-fill', 'bi-moon-fill');
+            }
+
+            btn.addEventListener('click', toggleTheme);
+        });
+
+    </script>
 </body>
 </html>
