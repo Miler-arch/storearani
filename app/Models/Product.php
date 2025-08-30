@@ -19,6 +19,6 @@ class Product extends Model implements HasMedia
             ->width(250)
             ->height(250)
             ->sharpen(10)
-            ->nonQueued(); // <- esto fuerza que se haga en el momento
+            ->nonQueued();
     }
 }
