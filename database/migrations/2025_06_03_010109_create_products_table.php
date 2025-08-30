@@ -14,10 +14,29 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('color')->nullable();
+            $table->string('size')->nullable();
+            $table->integer('quantity')->nullable();
+            $table->string('variant')->nullable();
+            $table->string("unit")->nullable();
+            $table->date("expiration_date")->nullable();
+            $table->string('type')->nullable();
             $table->decimal('price', 8, 2);
 
             $table->timestamps();
         });
+
+        // color
+        // tamaño
+        // nombre
+        // precio
+        // //cantidad
+        // cuartilla
+        // arroba
+        // litros
+        // unidad
+        // paquete
+        // tipo de producto
     }
 
     /**

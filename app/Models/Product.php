@@ -11,7 +11,7 @@ class Product extends Model implements HasMedia
 {
     use InteractsWithMedia;
 
-    protected $fillable = ['name', 'price'];
+    protected $fillable = ['name', 'price', 'color', 'size', 'quantity', 'variant', 'unit', 'expiration_date', 'type'];
 
     public function registerMediaConversions(?Media $media = null): void
     {

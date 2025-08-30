@@ -1,5 +1,15 @@
 @extends('layouts.app')
 
+@section('styles')
+    <style>
+        .card{
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+            border: 3px solid #eee !important;
+            border-radius: 8px !important;
+        }
+    </style>
+@endsection
+
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
@@ -38,17 +48,7 @@
                                 @csrf
                                 <div class="modal-body">
                                     <div class="container-fluid">
-                                        <label for="name" class="form-label">Nombre</label>
-                                        <input type="text" class="form-control" id="name" name="name" required>
-
-                                        <label for="price" class="form-label">Precio</label>
-                                        <input type="number" class="form-control" id="price" name="price" required>
-
-                                        <label for="image" class="form-label">Imagen</label>
-                                        <input type="file" class="form-control" id="image" name="image"
-                                            accept="image/*" required>
-                                        <div class="form-text">Sube una imagen del producto.</div>
-
+                                        @include('products.form')
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -65,19 +65,25 @@
 
                 <div class="row">
                     @foreach ($products as $product)
-                        <div class="col-12 col-md-6 col-lg-3">
-                            <div class="card mb-3">
+                        <div class="col-12 col-md-6 col-lg-3 mb-2">
+                            <div class="card h-100">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $product->name }}</h5>
                                     <p class="card-text">Precio: Bs.{{ $product->price }}</p>
                                     <img src="{{ $product->getFirstMediaUrl('images', 'preview') }}"
-                                        alt="{{ $product->name }}" class="img-fluid mb-2">
-                                    <a href="{{ route('products.edit', $product->id) }}" class="btn btn-warning">Editar</a>
+                                        alt="{{ $product->name }}" class="img-fluid">
+                                </div>
+                                <div class="card-footer">
+                                    <a href="{{ route('products.edit', $product->id) }}" class="btn btn-warning">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
                                     <form action="{{ route('products.destroy', $product->id) }}" method="POST"
                                         class="d-inline">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                                        <button type="submit" class="btn btn-danger">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
                                     </form>
                                 </div>
                             </div>
